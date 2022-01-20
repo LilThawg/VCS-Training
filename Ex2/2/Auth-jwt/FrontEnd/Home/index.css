@@ -1,0 +1,14 @@
+.header_navbar{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav_links, .list_items{
+    list-style: none;
+}
+
+.nav_items{
+    display: inline-block;
+    margin: 0 8px;
+}
+
