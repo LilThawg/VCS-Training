@@ -4,9 +4,13 @@ Xây dựng 1 website quản lý user bao gồm các tính năng:
 * Màn hình signup/login (1đ)
 * Trang chủ (hiển thị danh sách user, và chỉ user đã đăng nhập mới có quyền xem) (1đ)
 * API tạo role, tạo permission (5đ)
+
     ▪ Signup, login, logout (3đ)
+    
     ▪ Tạo role: Admin, basic user (1đ)
+    
     ▪ Tạo permission: Admin (view all users, delete user) (1đ)
+    
 * Sử dụng JWT
 * Có khả năng mở rộng để thêm mới role, user
 
