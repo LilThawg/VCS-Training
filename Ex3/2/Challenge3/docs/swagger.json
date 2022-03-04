@@ -1,0 +1,681 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Đây là swagger api của challenge 3",
+        "title": "Swagger Example API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "host": "localhost:8080",
+    "basePath": "/",
+    "paths": {
+        "/SignIn": {
+            "post": {
+                "description": "Đăng Nhập",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler Auth"
+                ],
+                "summary": "Sign In",
+                "parameters": [
+                    {
+                        "description": "User Sign In",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserSignIn"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Token"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/SignOut": {
+            "post": {
+                "description": "Đăng Xuất",
+                "tags": [
+                    "Handler Auth"
+                ],
+                "summary": "Sign Out",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleSuccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/SignUp": {
+            "post": {
+                "description": "Đăng ký",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler Auth"
+                ],
+                "summary": "Sign Up",
+                "parameters": [
+                    {
+                        "description": "User Sign Up",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserSignUp"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/addPost": {
+            "post": {
+                "description": "Thêm 1 bài post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler Post"
+                ],
+                "summary": "Add a post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Add Post",
+                        "name": "post",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PostAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.Post"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/addUser": {
+            "post": {
+                "description": "Thêm 1 User",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler User (Only Admin)"
+                ],
+                "summary": "Add a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "description": "Add User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deletePost": {
+            "delete": {
+                "description": "Xoá 1 Post theo id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler Post"
+                ],
+                "summary": "Delete A Post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Post's ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/deleteUser": {
+            "delete": {
+                "description": "Xoá thông tin 1 user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler User (Only Admin)"
+                ],
+                "summary": "Delete A User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User's Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/getAllPosts": {
+            "get": {
+                "description": "Lấy thông tin toàn bộ Post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler Post"
+                ],
+                "summary": "Get All Posts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.Post"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/getAllUsers": {
+            "get": {
+                "description": "Lấy thông tin toàn bộ user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler User (Only Admin)"
+                ],
+                "summary": "Get All Users",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/models.UserAdd"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updatePost": {
+            "put": {
+                "description": "Chỉnh thông tin post theo id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler Post"
+                ],
+                "summary": "Update a post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Post's ID",
+                        "name": "id",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Update Post",
+                        "name": "post",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.PostAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/updateUser": {
+            "put": {
+                "description": "Chỉnh thông tin 1 user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Handler User (Only Admin)"
+                ],
+                "summary": "Update A User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "default": "\u003cAdd access token here\u003e",
+                        "description": "Insert your access token",
+                        "name": "Token",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User's Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "description": "Update User",
+                        "name": "user",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.UserAdd"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleSuccess"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/models.ExampleFailure"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "gorm.DeletedAt": {
+            "type": "object",
+            "properties": {
+                "time": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if Time is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "models.ExampleFailure": {
+            "type": "object",
+            "properties": {
+                "error": {
+                    "type": "string",
+                    "example": "Lỗi gì đó ..."
+                }
+            }
+        },
+        "models.ExampleSuccess": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string",
+                    "example": "Thông báo đã thực hiện thành công..."
+                }
+            }
+        },
+        "models.Post": {
+            "type": "object",
+            "required": [
+                "content",
+                "title"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string",
+                    "example": "Nội dung bài post"
+                },
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "ownerPost": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Tiêu đề post"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.PostAdd": {
+            "type": "object",
+            "required": [
+                "content",
+                "title"
+            ],
+            "properties": {
+                "content": {
+                    "type": "string",
+                    "example": "Nội dung bài post"
+                },
+                "title": {
+                    "type": "string",
+                    "example": "Tiêu đề post"
+                }
+            }
+        },
+        "models.Token": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "email"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "user"
+                },
+                "token": {
+                    "type": "string",
+                    "example": "Token jwt"
+                }
+            }
+        },
+        "models.User": {
+            "type": "object",
+            "required": [
+                "email",
+                "name",
+                "password"
+            ],
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "deletedAt": {
+                    "$ref": "#/definitions/gorm.DeletedAt"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string"
+                },
+                "updatedAt": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.UserAdd": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "Email"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Tên"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "Mật khẩu"
+                },
+                "role": {
+                    "type": "string",
+                    "example": "admin/user"
+                }
+            }
+        },
+        "models.UserSignIn": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "Email"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "Mật khẩu"
+                }
+            }
+        },
+        "models.UserSignUp": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "example": "Email"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "Tên"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "Mật khẩu"
+                }
+            }
+        }
+    }
+}

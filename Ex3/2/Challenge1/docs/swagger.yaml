@@ -1,0 +1,165 @@
+basePath: /api
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.ExampleError:
+    properties:
+      error:
+        example: Lỗi gì đó ...
+        type: string
+    type: object
+  models.ExampleSuccess:
+    properties:
+      message:
+        example: Thông báo đã thực hiện thành công...
+        type: string
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      dob:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.UserCreateParam:
+    properties:
+      dob:
+        type: string
+      email:
+        type: string
+      gender:
+        type: string
+      name:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Đây là swagger api của challenge 1
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /addUser:
+    post:
+      consumes:
+      - application/json
+      description: Thêm 1 User
+      parameters:
+      - description: Add User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreateParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleError'
+      security:
+      - ApiKeyAuth: []
+      summary: Add a user
+      tags:
+      - Handler User
+  /deleteUser:
+    delete:
+      consumes:
+      - application/json
+      description: Xoá thông tin 1 user
+      parameters:
+      - description: User's Email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExampleSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleError'
+      summary: Delete A User
+      tags:
+      - Handler User
+  /getAllUsers:
+    get:
+      consumes:
+      - application/json
+      description: Lấy thông tin toàn bộ user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserCreateParam'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleError'
+      summary: Get All Users
+      tags:
+      - Handler User
+  /updateUser:
+    put:
+      consumes:
+      - application/json
+      description: Chỉnh thông tin 1 user
+      parameters:
+      - description: User's Email
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: Add User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserCreateParam'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExampleSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleError'
+      summary: Update A User
+      tags:
+      - Handler User
+swagger: "2.0"

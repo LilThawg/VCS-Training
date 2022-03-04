@@ -1,0 +1,288 @@
+basePath: /
+definitions:
+  gorm.DeletedAt:
+    properties:
+      time:
+        type: string
+      valid:
+        description: Valid is true if Time is not NULL
+        type: boolean
+    type: object
+  models.ExampleFailure:
+    properties:
+      error:
+        example: Lỗi gì đó ...
+        type: string
+    type: object
+  models.ExampleSuccess:
+    properties:
+      message:
+        example: Thông báo đã thực hiện thành công...
+        type: string
+    type: object
+  models.Token:
+    properties:
+      email:
+        example: email
+        type: string
+      role:
+        example: user
+        type: string
+      token:
+        example: Token jwt
+        type: string
+    type: object
+  models.User:
+    properties:
+      createdAt:
+        type: string
+      deletedAt:
+        $ref: '#/definitions/gorm.DeletedAt'
+      email:
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+      password:
+        type: string
+      role:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+  models.UserAdd:
+    properties:
+      email:
+        example: Email
+        type: string
+      name:
+        example: Tên
+        type: string
+      password:
+        example: Mật khẩu
+        type: string
+      role:
+        example: admin/user
+        type: string
+    type: object
+  models.UserSignIn:
+    properties:
+      email:
+        example: Email
+        type: string
+      password:
+        example: Mật khẩu
+        type: string
+    type: object
+  models.UserSignUp:
+    properties:
+      email:
+        example: Email
+        type: string
+      name:
+        example: Tên
+        type: string
+      password:
+        example: Mật khẩu
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Đây là swagger api của challenge 2
+  title: Swagger Example API
+  version: "1.0"
+paths:
+  /SignIn:
+    post:
+      consumes:
+      - application/json
+      description: Đăng Nhập
+      parameters:
+      - description: User Sign In
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserSignIn'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleFailure'
+      summary: Sign In
+      tags:
+      - Handler Auth
+  /SignOut:
+    post:
+      description: Đăng Xuất
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExampleSuccess'
+      summary: Sign Out
+      tags:
+      - Handler Auth
+  /SignUp:
+    post:
+      consumes:
+      - application/json
+      description: Đăng ký
+      parameters:
+      - description: User Sign Up
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserSignUp'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExampleSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleFailure'
+      summary: Sign Up
+      tags:
+      - Handler Auth
+  /admin/addUser:
+    post:
+      consumes:
+      - application/json
+      description: Thêm 1 User
+      parameters:
+      - default: <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: Add User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserAdd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleFailure'
+      summary: Add a user
+      tags:
+      - Handler User (Only Admin)
+  /admin/deleteUser:
+    delete:
+      consumes:
+      - application/json
+      description: Xoá thông tin 1 user
+      parameters:
+      - default: <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: User's Email
+        in: query
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExampleSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleFailure'
+      summary: Delete A User
+      tags:
+      - Handler User (Only Admin)
+  /admin/getAllUsers:
+    get:
+      consumes:
+      - application/json
+      description: Lấy thông tin toàn bộ user
+      parameters:
+      - default: <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.UserAdd'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleFailure'
+      summary: Get All Users
+      tags:
+      - Handler User (Only Admin)
+  /admin/updateUser:
+    put:
+      consumes:
+      - application/json
+      description: Chỉnh thông tin 1 user
+      parameters:
+      - default: <Add access token here>
+        description: Insert your access token
+        in: header
+        name: Token
+        required: true
+        type: string
+      - description: User's Email
+        in: query
+        name: email
+        required: true
+        type: string
+      - description: Update User
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.UserAdd'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.ExampleSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/models.ExampleFailure'
+      summary: Update A User
+      tags:
+      - Handler User (Only Admin)
+swagger: "2.0"
