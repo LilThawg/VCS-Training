@@ -97,12 +97,9 @@ func DeleteUser(c *gin.Context) {
 	defer database.CloseDatabase(connection)
 	
 	var user models.User
-	if err := c.ShouldBindJSON(&user); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	} 
+	email := c.Query("email") 
 	
-	email := user.Email
+	user.Email = email
 	connection.Unscoped().Where("email = ?", email).Delete(&user)
 
 	c.JSON(http.StatusOK, gin.H{
